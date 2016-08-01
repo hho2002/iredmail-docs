@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>WhiteList e BlackList</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<p><a href="./amavisd.wblist.html">English</a> /</p>
+</div>
+<h1 id="whitelist-e-blacklist">WhiteList e BlackList</h1>
+<div class="toc">
+<ul>
+<li><a href="#whitelist-e-blacklist">WhiteList e BlackList</a><ul>
+<li><a href="#gestire-whitelist-e-blaclist-con-iredadmin-pro">Gestire whitelist e blaclist con iRedAdmin-Pro</a></li>
+<li><a href="#gestire-whitelist-e-blacklist-con-comandi-sql">Gestire whitelist e blacklist con comandi SQL</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>questo tutorial mostra come mettere in whitelist e blacklist mittenti o destinatari con iRedAmdin-Pro e gli script annessi ad iRedADP (sin dalla versione 1.7.1).</p>
+<h2 id="gestire-whitelist-e-blaclist-con-iredadmin-pro">Gestire whitelist e blaclist con iRedAdmin-Pro</h2>
+<p>Con iRedAdmin-Pro potete gestire diversi livelli di whitelist e blacklist:</p>
+<ul>
+<li>White/Blacklist: nel menu <code>System -&gt; Anti Spam -&gt; Whitelists &amp; Blacklists</code>.</li>
+<li>White/Balcklist per dominio: nel pagina del profilo dominio, nel pannello <code>Whitelists and Blacklists</code>.</li>
+<li>White/Balcklist per utente: nella pagina del profilo utente, nel pannello <code>Whitelists and Blacklists</code>.</li>
+</ul>
+<p>Screenshot allegati in alla fine del documento.</p>
+<h2 id="gestire-whitelist-e-blacklist-con-comandi-sql">Gestire whitelist e blacklist con comandi SQL</h2>
+<p>Dalla versione 1.7.1 di iRedAPD viene allegato lo script <code>tools/wblist_admin.py</code> per aiutarvi a gestire whitelist/blacklist. Per avere la lista dei parametri di utilizzo eseguire lo script senza argomenti così come riportato sotto:</p>
+<pre><code># cd /opt/iredapd/tools/
+# python wblist_admin.py
+</code></pre>
+
+<p>Esempi di utilizzo:</p>
+<ul>
+<li>Aggiungere globalmente in whitelist o blacklist mittenti:</li>
+</ul>
+<pre><code># python wblist_admin.py --add --whitelist 202.96.134.133 john@example.com @test.com @.abc.com
+# python wblist_admin.py --add --blacklist 202.96.134.133 john@example.com @test.com @.abc.com
+</code></pre>
+
+<ul>
+<li>Elencare mittenti inseriti in whitelist o blacklist a livello globale:</li>
+</ul>
+<pre><code># python wblist_admin.py --list --whitelist
+# python wblist_admin.py --list --blacklist
+</code></pre>
+
+<ul>
+<li>Per gestire a livello utente o dominio le white/backlist aggiungete il parametro <code>--account</code> come sotto riportato:</li>
+</ul>
+<pre><code># python wblist_admin.py --account mydomain.com --add --whitelist 202.96.134.133
+# python wblist_admin.py --account user@mydomain.com --add --blacklist 202.96.134.133
+
+# python wblist_admin.py --account mydomain.com --list --whitelist
+# python wblist_admin.py --account user@mydomain.com --list --blacklist
+</code></pre>
+
+<ul>
+<li>Per le mail in uscita aggiungete il parametro <code>--outbound</code> come sotto riportato:</li>
+</ul>
+<pre><code># python wblist_admin.py --outbound --account mydomain.com --add --whitelist 202.96.134.133
+</code></pre>
+
+<p>Screenshot di iRedAdmin-Pro:</p>
+<p><img alt="" src="http://www.iredmail.org/images/iredadmin/system_wblist.png" /></p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

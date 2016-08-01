@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.9.5-1 to 0.9.6</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-095-1-to-096">Upgrade iRedMail from 0.9.5-1 to 0.9.6</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-095-1-to-096">Upgrade iRedMail from 0.9.5-1 to 0.9.6</a><ul>
+<li><a href="#todo">TODO</a></li>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-192">Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.2)</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-072">Upgrade iRedAdmin (open source edition) to the latest stable release (0.7.2)</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-120">Upgrade Roundcube webmail to the latest stable release (1.2.0)</a></li>
+<li><a href="#fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</a></li>
+<li><a href="#fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</a></li>
+<li><a href="#fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</a></li>
+<li><a href="#fixed-nginx-doesnt-forward-real-client-ip-address-to-sogo">Fixed: Nginx doesn't forward real client IP address to SOGo</a></li>
+<li><a href="#fixed-sogo-313-and-later-releases-changed-argument-used-by-sogo-tool-command">Fixed: SOGo-3.1.3 (and later releases) changed argument used by sogo-tool command</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This tutorial is still a <strong>DRAFT</strong>, do not apply it.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Paid Remote Upgrade Support</p>
+<p>We offer remote upgrade support if you don't want to get your hands dirty,
+check <a href="../support.html">the details</a> and <a href="../contact.html">contact us</a>.</p>
+</div>
+<h2 id="todo">TODO</h2>
+<ul>
+<li>Separated SOGo address book for LDAP backend.</li>
+<li>List all contacts by default in SOGo global LDAP address book (<code>listRequiresDot</code>).</li>
+</ul>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by <code>sogo-tool</code> command</li>
+<li>Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.</li>
+<li>Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.</li>
+<li>Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix.</li>
+<li>May 27, 2016: Fixed: not enable opportunistic TLS support in Postfix.</li>
+<li>May 24, 2016: Initial <strong>DRAFT</strong>.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>0.9.6
+</code></pre>
+
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-192">Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.2)</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-072">Upgrade iRedAdmin (open source edition) to the latest stable release (0.7.2)</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-120">Upgrade Roundcube webmail to the latest stable release (1.2.0)</h3>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: <a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</p>
+<p>Note: package <code>rsync</code> must be installed on your server before upgrading.</p>
+<h3 id="fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</h3>
+<p>iRedMail-0.9.5 and iRedMail-0.9.5-1 didn't enable opportunistic TLS support in
+Postfix, this causes other servers cannot transfer emails via TLS secure
+connection. Please fix it with commands below.</p>
+<pre><code>postconf -e smtpd_tls_security_level='may'
+postfix reload
+</code></pre>
+
+<h3 id="fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</h3>
+<p>There's one incorrect HELO restriction rule file <code>helo_access.pcre</code></p>
+<ul>
+<li>on Linux/OpenBSD, it's <code>/etc/postfix/helo_access.pcre</code></li>
+<li>on FreeBSD, it's <code>/usr/local/etc/postfix/helo_access.pcre</code></li>
+</ul>
+<p>It will match HELO identity like <code>[192.168.1.1]</code> which is legal.</p>
+<pre><code>/(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery (${1})
+</code></pre>
+
+<p>Please replace it by the correct one below (it matches the IP address with
+<code>/^IP$/</code> strictly):</p>
+<pre><code>/^(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})$/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery (${1})
+</code></pre>
+
+<h3 id="fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</h3>
+<p>iRedMail-0.9.5-1 and earlier versions didn't correct set file owner and
+permission of config file of Roundcube password plugin, other system users may
+be able to see the SQL/LDAP username and password in the config file. Please
+follow steps below to fix it.</p>
+<ul>
+<li>On RHEL/CentOS:</li>
+</ul>
+<h5>For Apache server:</h5>
+
+<pre><code>chown apache:apache /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
+</code></pre>
+
+<h5>For Nginx:</h5>
+
+<pre><code>chown nginx:nginx /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu (Note: with old iRedMail release, Roundcube directory is
+  <code>/usr/share/apache2/roundcubemail</code>):</li>
+</ul>
+<pre><code>chown www-data:www-data /opt/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /opt/www/roundcubemail/plugins/password/config.inc.php
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>chown www:www /usr/local/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /usr/local/www/roundcubemail/plugins/password/config.inc.php
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
+</code></pre>
+
+<h3 id="fixed-nginx-doesnt-forward-real-client-ip-address-to-sogo">Fixed: Nginx doesn't forward real client IP address to SOGo</h3>
+<p>iRedMail-0.9.5-1 and earlier releases didn't correctly configure Nginx to
+forward real client IP address to SOGo, this causes Fail2ban cannot catch
+bad clients with failed authentication while logging to SOGo. Please try
+steps below to fix it.</p>
+<ul>
+<li>Open file <code>/etc/nginx/templates/sogo.tmpl</code> (on Linux or OpenBSD) or
+  <code>/usr/local/etc/nginx/templates/sogo.tmpl</code> (on FreeBSD), find 3 lines like
+  below:</li>
+</ul>
+<pre><code>    #proxy_set_header X-Real-IP $remote_addr;
+    #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #proxy_set_header Host $host;
+</code></pre>
+
+<ul>
+<li>Remove the leading <code>#</code> to uncomment them:</li>
+</ul>
+<pre><code>    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+</code></pre>
+
+<ul>
+<li>Restart Nginx service.</li>
+</ul>
+<h3 id="fixed-sogo-313-and-later-releases-changed-argument-used-by-sogo-tool-command">Fixed: SOGo-3.1.3 (and later releases) changed argument used by <code>sogo-tool</code> command</h3>
+<p>SOGo-3.1.3 (and late releases) changed <code>sogo-tool</code> argument <code>expire-autoreply</code>
+to <code>update-autoreply</code>, and it's used in a daily cron job. Please update SOGo
+cron job to fix it.</p>
+<ul>
+<li>
+<p>Edit SOGo deamon user's cron job with command.</p>
+<ul>
+<li>On Linux: <code>crontab -e -u sogo</code></li>
+<li>On FreeBSD: <code>crontab -e -u sogod</code></li>
+<li>On OpenBSD: <code>crontab -e -u _sogo</code></li>
+</ul>
+</li>
+<li>
+<p>Replace the argument <code>expire-autoreply</code> by <code>update-autoreply</code>.</p>
+</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
